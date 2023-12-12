@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Foldit&family=Lemonada:wght@300&family=Luxurious+Script&family=Monoton&family=Nosifer&family=Shrikhand&family=Yeseva+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        const storageTheme = localStorage.getItem('theme');
+        const systemColorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const newTheme = storageTheme ?? systemColorScheme;
+        document.documentElement.setAttribute('data-theme', newTheme);
+    </script>
+    <title>Error Registrar</title>
+</head>
+<body>
+<header>
+    <h1 style="color: white">Error el usuario no existe, por favor registrese</h1>
+</header>
+<main>
+
+    <section class="registrar-datos">
+        <div class="cambio">
+            <h2>Bienvenido</h2>
+            <p>Si ya tiene una cuenta haga clic aqui!</p>
+            <a href="iniciar_Sesion.html"><button class="sign-up-btn">Iniciar sesion</button></a>
+        </div>
+        <form class="em-registrate" action="/registrar" method="post">
+            <div class="titulo">
+                <h1 class="registrate">Crear cuenta</h1>
+            </div>
+            <div class="credenciales">
+                <div class="cliente">
+                    <label for="nombre" class="nombres">Usuario</label>
+                    <div class="input-container">
+                        <input type="text" class="text" name="nombre" required placeholder="name">
+                        <span class="material-symbols-outlined icon">person</span>
+                    </div>
+                </div>
+                <div class="d-correo">
+                    <label for="username" class="correo">Correo</label>
+                    <div class="input-container">
+                        <input type="email" class="email" name="username" required placeholder="email@dominio.com ">
+                        <span class="material-symbols-outlined icon">mail</span>
+                    </div>
+                </div>
+                <div class="d-contraseña">
+                    <label for="password" class="contraseña">Contraseña</label>
+                    <div class="input-container">
+                        <input type="password" class="password" name="password" required placeholder="Contraseña">
+                        <span class="material-symbols-outlined icon">lock</span>
+                    </div>
+                </div>
+                <div class="boton">
+                    <button class="btn-registrar">Registrate</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+body{
+    height: 600px;
+    width: 1300px;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://legacy.mcp.es/sites/default/files/emp_actividades_sensibilizacion/actividades/cineforum%20ajustada%20def.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+.navegacion{
+    width: 100%;
+}
+.cont-imagen{
+    margin-top: 1em;
+    height: 100px;
+    width: 80%;
+    display: block;
+}
+.imagen{
+    height: 70%;
+    background-size: cover;
+    background-position: center;
+    animation: fade-in 2s;
+    overflow: hidden;
+}
+.imagen:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, transparent, black);
+    opacity: 0.5;
+    pointer-events: none;
+}
+.lista{
+    margin-right: 0;
+    display: flex;
+}
+li{
+    margin-left: 30%;
+}
+main{
+    margin-top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+}
+.logo{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imagenLogo{
+    width: 30%;
+    height: auto;
+}
+.cambio{
+    text-align: center;
+    display: block;
+    width: 40%;
+    margin: 5%;
+    padding: 4%;
+    color: aliceblue;
+    background-color: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(10px);
+
+}
+.registrar-datos{
+    flex: content;
+    width: 90%;
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    display: flex;
+    margin: 5%;
+}
+.em-registrate{
+    width:  40%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    border: 2px solid #fff;
+}
+.titulo{
+    width: 100%;
+    height: 20%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    font-family: 'Yeseva One', cursive;
+}
+.cambio button {
+    padding: 1rem;
+    font-weight: 400;
+    background-color: #4a4aee;
+    border-radius: 2rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: .9rem;
+    margin-top: 2rem;
+    transition: all .3s ease-in;
+    color: #fff;
+}
+.cambio h2 {
+    font-size: 1.7rem;
+    padding: 1rem 0;
+}
+.cambio button:hover {
+    background-color: #6464f8;
+}
+.iconos{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.border-icon{
+    height: 30%;
+    width: 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+    border: solid thin white;
+    border-radius: 50%;
+    transition: all .3s ease-in;
+    margin-left: 1%;
+}
+.border-icon:hover {
+    background-color: #4a4aee;
+    cursor: pointer;
+}
+.registrate{
+    color: aliceblue;
+    width: 100%;
+    height: 20%;
+}
+.credenciales{
+    width: 100%;
+    height: 75%;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+}
+.cliente,.d-correo, .d-contraseña{
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    display:flow-root;
+
+}
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48,
+}
+.nombres{
+    margin: 0;
+    margin-left: 2em;
+}
+.correo{
+    margin: 0;
+    margin-left: 2em;
+}
+.input-container {
+    width: 90%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+.contraseña{
+    margin: 0;
+    margin-left: 2em;
+}
+.icon{
+    margin-left: 3%;
+    flex: 0%;
+}
+label{
+    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Foldit', cursive;
+    font-family: 'Lemonada', cursive;
+    font-family: 'Luxurious Script', cursive;
+    font-family: 'Monoton', cursive;
+    font-family: 'Montez', cursive;
+    font-family: 'Nosifer', cursive;
+    font-family: 'Shrikhand', cursive;
+    font-family: 'Yeseva One', cursive;
+    font-weight: bold;
+}
+.boton{
+    width: 100%;
+    height: 40%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.btn-registrar{
+    width: 50%;
+    height: 50%;
+    border-radius: 24px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    font-weight: bold;
+    transition: background-color 0.1s ease;
+}
+.btn-registrar:hover {
+    background-color: lightgray;
+}
+.btn-registrar:active {
+    background-color: gray;
+}
+.email, .password, .text{
+    flex: 90%;
+    height: 100%;
+    display: block;
+    padding-right: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border: none;
+    outline: none;
+    padding: .2rem 0;
+    font-size: .9rem;
+    text-align: center;
+    color: #000;
+    caret-color: #000;
+    margin: auto;
+    border-bottom: white thin solid;
+}
