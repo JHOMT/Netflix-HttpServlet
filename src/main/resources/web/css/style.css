@@ -202,22 +202,13 @@ main{
     justify-content: center;
 }
 .contraseña{
-    margin: 0;
-    margin-left: 2em;
+    margin: 0 0 0 2em;
 }
 .icon{
     margin-left: 3%;
     flex: 0%;
 }
 label{
-    font-family: 'Cormorant Garamond', serif;
-    font-family: 'Foldit', cursive;
-    font-family: 'Lemonada', cursive;
-    font-family: 'Luxurious Script', cursive;
-    font-family: 'Monoton', cursive;
-    font-family: 'Montez', cursive;
-    font-family: 'Nosifer', cursive;
-    font-family: 'Shrikhand', cursive;
     font-family: 'Yeseva One', cursive;
     font-weight: bold;
 }
@@ -242,7 +233,7 @@ label{
     background-color: lightgray;
 }
 .btn-registrar:active {
-    background-color: gray;
+    background-color: rgb(128, 128, 128);
 }
 .email, .password, .text{
     flex: 90%;
