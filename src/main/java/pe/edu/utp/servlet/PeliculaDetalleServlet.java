@@ -1,75 +1,75 @@
 package pe.edu.utp.servlet;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pe.edu.utp.data.Cargador;
-import pe.edu.utp.metodos.OdenamientoPeliculas.OrdenamientoPeliculasNombre;
-import pe.edu.utp.model.Pelicula;
-import pe.edu.utp.utils.DataReader;
+import pe.edu.utp.JPA.Controller.ComentarioController;
+import pe.edu.utp.JPA.Controller.PeliculaController;
+import pe.edu.utp.JPA.Controller.UsuarioController;
+import pe.edu.utp.utils.model.Comentario;
+import pe.edu.utp.utils.model.Pelicula;
+import pe.edu.utp.utils.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class PeliculaDetalleServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nombrePelicula = request.getParameter("nombre");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Usuario usuarioLogeado = IniciarSesionServlet.getUsuario();
+        PeliculaController peliculaController = new PeliculaController();
+        ComentarioController comentarioController = new ComentarioController();
+        UsuarioController usuarioController = new UsuarioController();
+        int idPelucula = Integer.parseInt(request.getParameter("id"));
 
-        Pelicula[] peliculas = DataReader.CargarPeliculas();
-        Pelicula[] peliculasOrdenadas = OrdenamientoPeliculasNombre.mergeSort(peliculas);
-        int indice = busquedaBinary(peliculasOrdenadas, nombrePelicula);
+        Pelicula pelicula = peliculaController.findById(idPelucula);
+        List<Comentario> comentariosList = comentarioController.findByPeliculaId(idPelucula);
+        StringBuilder comentarios = new StringBuilder();
 
-        if (indice != -1) {
-            Pelicula pelicula = peliculasOrdenadas[indice];
-            StringBuilder salida = new StringBuilder();
-            salida.append("<div class=\"descripcion\">")
-                    .append("<div class=\"titulo\">")
-                    .append("<h1>").append(pelicula.getName()).append("</h1>")
-                    .append("</div>")
-                    .append("<div class=\"caracteristicas\">")
-                    .append("<div class=\"video-container\">").append(pelicula.getVideoLink()).append("</div>")
-                    .append("<div class=\"descripcion\">")
-                    .append("<h4>Descripcion:").append("</h4>")
-                    .append("<p>").append(pelicula.getDescription()).append("</p>")
-                    .append("<h4>Actor: ").append("</h4>")
-                    .append("<p>").append(pelicula.getActor()).append("</p>")
-                    .append("<h4>Autor: ").append("</h4>")
-                    .append("<p>").append(pelicula.getAutor()).append("</p>")
-                    .append("<h4>Productor: ").append("</h4>")
-                    .append("<p>").append(pelicula.getProductor()).append("</p>")
-                    .append("<h4>Año:").append("</h4>")
-                    .append("<p>").append(pelicula.getAño()).append("</p>")
-                    .append("</div>")
-                    .append("</div>");
-            String filenameDetalle = "src/main/resources/web/detalle.html";
-            String detalleHTML = TextUTP.read(filenameDetalle);
-            detalleHTML = detalleHTML.replace("${nombre}",pelicula.getName()).replace("${informacion}", salida.toString());
-
-            response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write(detalleHTML);
-        } else {
-            String errorHMTL = "src\\main\\resources\\web\\error.html";
-            response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write(errorHMTL);
-        }
-    }
-    public static int busquedaBinary(Pelicula[] peliculas, String nombre) {
-        int izquierda = 0;
-        int derecha = peliculas.length - 1;
-        while (izquierda <= derecha) {
-            int medio = izquierda + (derecha - izquierda) / 2;
-            Pelicula usuarioEnMedio = peliculas[medio];
-            int comparacion = usuarioEnMedio.getName().compareTo(nombre);
-            if (comparacion == 0 ) {
-                return medio;
-            } else if (comparacion < 0) {
-                izquierda = medio + 1;
-            } else {
-                derecha = medio - 1;
+        for (Comentario comentario : comentariosList) {
+            Usuario usuario = usuarioController.findById(comentario.getUsuario_id());
+            if (usuario != null) {
+                comentarios.append("<div class=\"comentario\">")
+                        .append("<div class=\"usuario-imagen\">")
+                        .append("<img src=\"img/usuarios/").append(usuario.getImagen()).append("\" alt=\"\">")
+                        .append("</div>")
+                        .append("<div class=\"info-comentario\">")
+                        .append("<h3>@ <strong>");
+                if (usuario.equals(usuarioLogeado)){
+                    comentarios.append("Tu ");
+                }else {
+                    comentarios.append(usuario.getNombre());
+                }
+                comentarios
+                        .append(" ").append("</strong>").append(formatDate(comentario.getFecha_comentario()))
+                        .append("</h3>")
+                        .append("<p>").append(comentario.getComentario()).append("</p>")
+                        .append("</div>")
+                        .append("</div><!---- fin comentario---->");
             }
         }
-        return -1;
+        String filenameDetalle = "src/main/resources/web/detalle.html";
+        String detalleHTML = TextUTP.read(filenameDetalle);
+
+        detalleHTML = detalleHTML
+                .replace("${idPelicula}", String.valueOf(pelicula.getId()))
+                .replace("${titulo}",pelicula.getTitulo())
+                .replace("${video}", pelicula.getUrl())
+                .replace("${descripcion}", pelicula.getDescription())
+                .replace("${actor}", pelicula.getActor())
+                .replace("${autor}", pelicula.getAutor())
+                .replace("${productor}", pelicula.getProductor())
+                .replace("${lanzamiento}", String.valueOf(pelicula.getFecha_lanzamiento()))
+                .replace("${comentarios}",comentarios)
+        ;
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().write(detalleHTML);
+    }
+    public String formatDate(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return localDateTime.format(formatter);
     }
 }

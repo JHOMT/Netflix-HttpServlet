@@ -1,6 +1,6 @@
 package pe.edu.utp.structures;
 
-import pe.edu.utp.model.Usuario;
+import pe.edu.utp.utils.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.HashMap;

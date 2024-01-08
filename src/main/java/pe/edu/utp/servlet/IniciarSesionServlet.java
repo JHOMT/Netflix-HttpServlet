@@ -5,9 +5,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
-import pe.edu.utp.model.Usuario;
-import pe.edu.utp.structures.TablaHashUsuarios;
-import pe.edu.utp.utils.DataReader;
+import pe.edu.utp.JPA.Controller.UsuarioController;
+import pe.edu.utp.utils.model.Usuario;
 
 import java.io.IOException;
 
@@ -15,29 +14,21 @@ public class IniciarSesionServlet extends HttpServlet {
     @Getter
     @Setter
     private static Usuario usuario;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
+        UsuarioController usuarioController = new UsuarioController();
+        String username = req.getParameter("email");
         String password = req.getParameter("password");
-        try {
-            TablaHashUsuarios tablaUsuarios = new TablaHashUsuarios();
-            Usuario[] usuarios = DataReader.CargarUsuarios();
-            for (Usuario usuario : usuarios) {
-                tablaUsuarios.agregarUsuario(usuario.getUsername(),usuario);
-            }
-            Usuario usuarioEncontrado = tablaUsuarios.buscarUsuario(username);
-            if (usuarioEncontrado != null && usuarioEncontrado.getPassword() != null && usuarioEncontrado.getPassword().equals(password)) {
-                this.setUsuario(usuarioEncontrado);
-                if (usuarioEncontrado.isAdmin()) {
-                    resp.sendRedirect("/dashboard");
-                } else {
-                    resp.sendRedirect("/listar");
-                }
+        Usuario usuario = usuarioController.login(username,password);
+        if (usuario != null ) {
+            this.setUsuario(usuario);
+            if (usuario.isAdmin()) {
+                resp.sendRedirect("/dashboard");
             } else {
-                resp.sendRedirect("/error.html");
+                resp.sendRedirect("/listar");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
             resp.sendRedirect("/error.html");
         }
     }

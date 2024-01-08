@@ -4,20 +4,21 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pe.edu.utp.data.Cargador;
-import pe.edu.utp.model.Usuario;
-import pe.edu.utp.utils.DataReader;
+import pe.edu.utp.JPA.Controller.UsuarioController;
+import pe.edu.utp.utils.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ListarUsuariosServlet extends HttpServlet {
     int PAGE_SIZE = 10;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Usuario[] users = DataReader.CargarUsuarios();
+        UsuarioController usuarioController = new UsuarioController();
+        List<Usuario> users = usuarioController.findAll();
 
-        int totalUsers = users.length;
+        int totalUsers = users.size();
         int offset = 0;
         String offsetParam = req.getParameter("offset");
 
@@ -34,9 +35,9 @@ public class ListarUsuariosServlet extends HttpServlet {
         String itemsHtml = "";
 
         for (int i = offset; i < totalUsers && i < offset + PAGE_SIZE; i++) {
-            Usuario user = users[i];
+            Usuario user = users.get(i);
             int id = i + 1;
-            itemsHtml += "<tr><th scope='row'>" + id + "</th><td>" + user.getNombre() + "</td><td>" + user.getUsername() + "</td><td>" + user.getPassword() + "</td><td>"+user.isAdmin()+"</td></tr>";
+            itemsHtml += "<tr><th scope='row'>" + id + "</th><td>" + user.getNombre() + "</td><td>" + user.getEmail() + "</td><td>" + user.getContrasena() + "</td><td>"+user.isAdmin()+"</td></tr>";
         }
 
         html = html.replace("${items}", itemsHtml);

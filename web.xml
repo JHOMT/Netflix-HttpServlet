@@ -4,15 +4,5 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <servlet>
-        <servlet-name>BuscarUsuarioServlet</servlet-name>
-        <servlet-class>pe.edu.utp.servlet.BuscarUsuarioServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>BuscarUsuarioServlet</servlet-name>
-        <url-pattern>/buscarUsuario</url-pattern>
-    </servlet-mapping>
-
 
 </web-app>

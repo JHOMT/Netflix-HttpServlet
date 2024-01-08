@@ -1,7 +1,7 @@
 package pe.edu.utp.structures;
 
 import lombok.*;
-import pe.edu.utp.model.Pelicula;
+import pe.edu.utp.utils.model.Pelicula;
 @Getter
 @Setter
 @AllArgsConstructor

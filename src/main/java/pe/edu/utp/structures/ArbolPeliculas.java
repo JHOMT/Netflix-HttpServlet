@@ -1,6 +1,6 @@
 package pe.edu.utp.structures;
 
-import pe.edu.utp.model.Pelicula;
+import pe.edu.utp.utils.model.Pelicula;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class ArbolPeliculas {
         if (nodo == null) {
             return new NodoPelicula(nuevaPelicula);
         }
-        int comparacion = nuevaPelicula.getName().compareToIgnoreCase(nodo.getPelicula().getName());
+        int comparacion = nuevaPelicula.getTitulo().compareToIgnoreCase(nodo.getPelicula().getTitulo());
         if (comparacion < 0) {
             nodo.setIzquierda(insertarRec(nodo.getIzquierda(), nuevaPelicula));
         } else if (comparacion > 0) {
@@ -36,8 +36,8 @@ public class ArbolPeliculas {
             return;
         }
         Pelicula peliculaActual = nodo.getPelicula();
-        if (peliculaActual.getName().toLowerCase().contains(valorABuscar) ||
-                    String.valueOf(peliculaActual.getAño()).equals(valorABuscar) ||
+        if (peliculaActual.getTitulo().toLowerCase().contains(valorABuscar) ||
+                    String.valueOf(peliculaActual.getFecha_lanzamiento()).equals(valorABuscar) ||
                     peliculaActual.getActor().toLowerCase().contains(valorABuscar) ||
                     peliculaActual.getAutor().toLowerCase().contains(valorABuscar) ||
                     peliculaActual.getProductor().toLowerCase().contains(valorABuscar)) {

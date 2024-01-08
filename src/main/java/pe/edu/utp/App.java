@@ -16,8 +16,11 @@ public class App {
         webserver.addServlet(RegistrarPeliculaServlet.class,"/registrarPelicula");
         webserver.addServlet(IniciarSesionServlet.class,"/login");
         webserver.addServlet(PeliculaDetalleServlet.class, "/detalle");
-        webserver.addServlet(BuscarPeliculaServlet.class, "/buscar");
+        webserver.addServlet(BuscarPeliculaUsuarioServlet.class, "/buscar");
+        webserver.addServlet(BuscarPeliculaDasboardServlet.class, "/DashboardSearch");
         webserver.addServlet(BuscarUsuarioServlet.class, "/buscarUsuario");
+
+        webserver.addServlet(ComentarServlet.class, "/comentar");
         URL myURL = new URL("http://localhost:8082");
         System.out.println("*********************************************************");
         System.out.println("CLICK AQUI PARA ABRIR LA APLICACION:" + myURL);

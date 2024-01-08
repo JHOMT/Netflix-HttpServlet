@@ -4,58 +4,61 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pe.edu.utp.App;
-import pe.edu.utp.data.Cargador;
-import pe.edu.utp.model.Pelicula;
-import pe.edu.utp.utils.DataReader;
+import pe.edu.utp.JPA.Controller.CategoriaController;
+import pe.edu.utp.JPA.Controller.PeliculaController;
+import pe.edu.utp.utils.model.Categoria;
+import pe.edu.utp.utils.model.Pelicula;
+import pe.edu.utp.utils.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.List;
 
 public class ListarPeliculasServlet  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String filename = "src\\main\\resources\\templates\\listado.html";
+        Usuario usuario = IniciarSesionServlet.getUsuario();
+
+        PeliculaController peliculaController = new PeliculaController();
+        List<Pelicula> peliculas = peliculaController.findAll();
+
+        CategoriaController categoriaController = new CategoriaController();
+
+        String filename = "src\\main\\resources\\web\\listarPeliculasUsuarios.html";
         String html = TextUTP.read(filename);
 
-        String filename_item = "src\\main\\resources\\templates\\listado_item.html";
-        String html_item = TextUTP.read(filename_item);
-        StringBuilder items_html = new StringBuilder();
+        StringBuilder htmlBuilder = new StringBuilder();
+        for (Pelicula pelicula : peliculas) {
+            htmlBuilder.append("<a href=\"/detalle?id=").append(pelicula.getId()).append("\" class=\"card\">");
+            htmlBuilder.append("<div class=\"poster\"><img src=\"img/peliculas/").append(pelicula.getImagen()).append("\" alt=\"Location Unknown\"></div>");
+            htmlBuilder.append("<div class=\"details\">");
+            htmlBuilder.append("<h1>").append(pelicula.getTitulo()).append("</h1>");
+            htmlBuilder.append("<h2>").append(pelicula.getFecha_lanzamiento()).append("</h2>");
+            htmlBuilder.append("<div class=\"rating\">");
+            htmlBuilder.append("<i class=\"fas fa-star\"></i>");
+            htmlBuilder.append("<i class=\"fas fa-star\"></i>");
+            htmlBuilder.append("<i class=\"fas fa-star\"></i>");
+            htmlBuilder.append("<i class=\"fas fa-star\"></i>");
+            htmlBuilder.append("<i class=\"far fa-star\"></i>");
+            htmlBuilder.append("</div>");
+            htmlBuilder.append("<div class=\"tags\">");
 
-        String filename_imagenes = "src\\main\\resources\\templates\\muestra_imagenes.html";
-        String html_imagen = TextUTP.read(filename_imagenes);
-        StringBuilder imagenes_html = new StringBuilder();
+            List<Categoria> categorias = categoriaController.findByPeliculaId(pelicula.getId());
+            for (Categoria categoria : categorias) {
+                htmlBuilder.append("<span class=\"tag\">").append(categoria.getNombre()).append("</span>");
+            }
 
-        Pelicula[] data = DataReader.CargarPeliculas();
-
-        for (Pelicula pelicula : data) {
-            String item = html_item
-                    .replace("${nombre}", pelicula.getName())
-                    .replace("${imagen}", pelicula.getImagen());
-
-            items_html.append(item);
+            htmlBuilder.append("</div>");
+            htmlBuilder.append("<p class=\"desc\">").append(pelicula.getDescription()).append("</p>");
+            htmlBuilder.append("</div>");
+            htmlBuilder.append("</a>");
         }
 
-        Random random = new Random();
-        Set<Integer> indicesSet = new HashSet<>();
-        Pelicula imagenAzar[] = new Pelicula[3];
-        for (int i = 0; i < 3; i++) {
-            int indice;
-            do {
-                indice = random.nextInt(data.length);
-            } while (!indicesSet.add(indice));
-            imagenAzar[i] = data[indice];
-        }
-        String imagen = html_imagen
-                .replace("${imagen0}", imagenAzar[0].getImagen()).replace("${nombre0}",imagenAzar[0].getName())
-                .replace("${imagen1}", imagenAzar[1].getImagen()).replace("${nombre1}",imagenAzar[1].getName())
-                .replace("${imagen2}", imagenAzar[2].getImagen()).replace("${nombre2}",imagenAzar[2].getName());
-        imagenes_html.append(imagen);
 
-        String reporte_html = html.replace("${imagenes}", imagenes_html.toString()).replace("${items}", items_html.toString());
+        String reporte_html = html
+                .replace("${nombre_usuario}", usuario.getNombre())
+                .replace("${imagen_usuario}", usuario.getImagen())
+                .replace("${items}", htmlBuilder.toString());
         resp.getWriter().write(reporte_html);
     }
 }

@@ -4,19 +4,22 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pe.edu.utp.data.Cargador;
-import pe.edu.utp.model.Pelicula;
-import pe.edu.utp.utils.DataReader;
+import pe.edu.utp.JPA.Controller.PeliculaController;
+import pe.edu.utp.utils.model.Pelicula;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
+import java.util.List;
 
 public class DashboardPeliculasServlet extends HttpServlet {
     int PAGE_SIZE = 12;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Pelicula[] data = DataReader.CargarPeliculas();
-        int totalPeliculas = data.length;
+
+        PeliculaController peliculaController = new PeliculaController();
+        List<Pelicula> peliculas = peliculaController.findAll();
+
+        int totalPeliculas = peliculas.size();
         int offset = 0;
         String offsetParam = req.getParameter("offset");
 
@@ -37,8 +40,10 @@ public class DashboardPeliculasServlet extends HttpServlet {
 
         for (int i = offset; i < totalPeliculas && i < offset + PAGE_SIZE; i++) {
             String item = html_item
-                    .replace("${nombre}", data[i].getName())
-                    .replace("${imagen}", data[i].getImagen());
+                    .replace("${nombre}", peliculas.get(i).getTitulo())
+                    .replace("${imagen}", peliculas.get(i).getImagen())
+                    .replace("${id}",String.valueOf(peliculas.get(i).getId()))
+                    ;
 
             items_html.append(item);
         }

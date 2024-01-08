@@ -3,29 +3,18 @@ package pe.edu.utp.servlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pe.edu.utp.model.Usuario;
-import pe.edu.utp.structures.TablaHashUsuarios;
-import pe.edu.utp.utils.DataReader;
+import pe.edu.utp.JPA.Controller.UsuarioController;
+import pe.edu.utp.utils.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BuscarUsuarioServlet extends HttpServlet {
-
-    private final TablaHashUsuarios tablaUsuarios;
-
-    public BuscarUsuarioServlet() {
-        this.tablaUsuarios = new TablaHashUsuarios();
-        Usuario[] usuarios = DataReader.CargarUsuarios();
-        for (Usuario usuario : usuarios) {
-            tablaUsuarios.agregarUsuario(usuario.getNombre(), usuario);
-        }
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        UsuarioController usuarioController = new UsuarioController();
+
         try {
             String usuarioBuscado = req.getParameter("txtNombre");
             if (usuarioBuscado == null || usuarioBuscado.trim().isEmpty()) {
@@ -33,7 +22,7 @@ public class BuscarUsuarioServlet extends HttpServlet {
                 return;
             }
 
-            List<Usuario> usuariosEncontrados = tablaUsuarios.buscarNombreUsuario(usuarioBuscado);
+            List<Usuario> usuariosEncontrados = usuarioController.findByAll(usuarioBuscado);
             String filename = "src\\main\\resources\\web\\usuarios.html";
             String html = TextUTP.read(filename);
             StringBuilder tableRows = new StringBuilder();
@@ -41,7 +30,7 @@ public class BuscarUsuarioServlet extends HttpServlet {
             for (Usuario usuario : usuariosEncontrados) {
                 tableRows.append("<tr><th scope='row'>").append(i).append("</th><td>")
                         .append(usuario.getNombre()).append("</td><td>")
-                        .append(usuario.getUsername()).append("</td><td>")
+                        .append(usuario.getEmail()).append("</td><td>")
                         .append("******")
                         .append("</td><td>")
                         .append(usuario.isAdmin())
