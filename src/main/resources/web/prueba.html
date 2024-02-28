@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <title>Acerca de - CineGlobal</title>
+    <link rel="stylesheet" href="css/listarPeliculas.css">
+</head>
+<body>
+<header>
+    <div class="hero">
+        <nav>
+            <label class="logo">CineGlobal</label>
+            <ul>
+                <li><a href="#about">Acerca de</a></li>
+                <li><a href="#contact">Contacto</a></li>
+                <li><a href="registrar-usuario.html">Registrarse</a></li>
+                <li><a href="iniciar_Sesion.html">Iniciar sesión</a></li>
+            </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="conteiner">
+        <section id="features">
+            <h2>Características de CineGlobal</h2>
+            <div class="feature">
+                <h3>Amplia Biblioteca de Películas</h3>
+                <p>Accede a una amplia colección de películas de distintos géneros y épocas.</p>
+            </div>
+            <div class="feature">
+                <h3>Recomendaciones Personalizadas</h3>
+                <p>Recibe sugerencias de películas basadas en tus preferencias y gustos.</p>
+            </div>
+            <div class="feature">
+                <h3>Interfaz Intuitiva</h3>
+                <p>Disfruta de una interfaz fácil de usar para navegar y buscar películas.</p>
+            </div>
+        </section>
+    
+        <section id="about">
+            <h2>Acerca de CineGlobal</h2>
+            <p>Texto explicando la idea detrás de la aplicación y tu rol como creador.</p>
+        </section>
+    
+        <section id="contact">
+            <h2>Contacto</h2>
+            <p>Información de contacto para soporte o consultas.</p>
+        </section>
+    </div>
+    <div class="img">
+        <img src="img/empresa/Home cinema-amico.svg" alt="">
+    </div>
+</main>
+
+
+
+<footer>
+    <p>&copy; 2024 CineGlobal | Creado por Jhon Mendoza</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll('section');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+
+</script>
+</body>
+</html>

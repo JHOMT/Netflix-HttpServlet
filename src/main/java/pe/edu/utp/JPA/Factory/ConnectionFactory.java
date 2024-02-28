@@ -1,4 +1,4 @@
-package pe.edu.utp.Factory;
+package pe.edu.utp.JPA.Factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pe.edu.utp.JPA.Controller.UsuarioController;
-import pe.edu.utp.utils.model.Usuario;
+import pe.edu.utp.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
@@ -37,8 +37,10 @@ public class ListarUsuariosServlet extends HttpServlet {
         for (int i = offset; i < totalUsers && i < offset + PAGE_SIZE; i++) {
             Usuario user = users.get(i);
             int id = i + 1;
-            itemsHtml += "<tr><th scope='row'>" + id + "</th><td>" + user.getNombre() + "</td><td>" + user.getEmail() + "</td><td>" + user.getContrasena() + "</td><td>"+user.isAdmin()+"</td></tr>";
+            String isAdminHTML = user.isAdmin() ? "<span class='check'>&#10003;</span>" : "<span class='x'>&#10007;</span>";
+            itemsHtml += "<tr><th scope='row'>" + id + "</th><td>" + user.getNombre() + "</td><td>" + user.getEmail() + "</td><td> ********** </td><td>"+isAdminHTML+"</td></tr>";
         }
+
 
         html = html.replace("${items}", itemsHtml);
 
@@ -56,7 +58,7 @@ public class ListarUsuariosServlet extends HttpServlet {
 
         paginationHtml += "</ul></nav>";
         html = html.replace("${pagination}", paginationHtml);
-
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(html);
     }
 }

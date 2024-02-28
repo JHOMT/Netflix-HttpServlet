@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/general.css">
-    <link rel="stylesheet" href="css/configuracion.css">
+    <link rel="stylesheet" href="css/admin.css">
     <title>Dashboard</title>
     <script>
         const storageTheme = localStorage.getItem('theme');
@@ -18,97 +18,10 @@
         const newTheme = storageTheme ?? systemColorScheme;
         document.documentElement.setAttribute('data-theme', newTheme);
     </script>
-    <style>
-        body{
-            padding: 2%;
-            width: 100%;
-            height: 100%;
-        }
-        .peliculasLista{
-            width: 100%;
-            height: 100px;
-            margin: 0px 0px 1px 0px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        label{
-            width: 35%;
-        }
-        input{
-            height: 5%;
-        }
-        .titulo{
-            display: flex;
-            width: 100%;
-            height: auto;
-            justify-content: center;
-            align-items: center;
-        }
-        .titulo h1{
-            margin-right: 1rem;
-        }
-        form{
-            margin-left: 4rem;
-        }
-        
-        .contenerdor1{
-            margin-top: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .registro{
-            display: inline-block;
-            height: 60%;
-            width: 70%;
-        }
-        .imagenCargada{
-            height: 100%;
-            width: 30%;
-            padding: 2rem;
-            padding-top: 0;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .tile_imagen{
-            margin-bottom: 3rem;
-        }
-        .container-imagen-muestra{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 10%;
-            border: 1px solid #000;
-            height: 300px;
-            width: 200px;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            padding: 1px;
-            display: flex;
-            padding: 20px;
-        }
-        .imagen-previa{
-            height: auto;
-            display: none;
-        }
-        .file-previa-agregar {
-            display: none;
-        }
-        .imagen-previa-agregar {
-            width: 100%;
-            height: auto;
-        }
-        label{
-            width: 45%;
-        }
-    </style>
 </head>
 <body>
     <header class="container-header">
-        
+
         <ul class="lista-header">
             <li class="item-logo-header">
                 <div class="logo-header">
@@ -152,33 +65,50 @@
                             <div class="modal-body">
                                 <div class="contenerdor1">
                                     <div class="registro">
-                                        <form action="/registrarPelicula" method="POST">
+                                        <form action="/registrarPelicula" method="POST" enctype="multipart/form-data">
                                             <div class="mb-3" style="display: flex;">
-                                                <label for="nombre" class="h5">Nombre: </label>
-                                                <input type="text" class="form-control"  aria-describedby="emailHelp" required name="nombre">
+                                                <label for="nombre" class="h6">Nombre: </label>
+                                                <input type="text" id="nombre" class="form-control"  aria-describedby="emailHelp" required name="nombre">
+                                            </div>
+                                            <div class="modal-body-contenedor categorias" >
+                                                <label class="h6">Categorias:</label><br>
+                                                <div class="list-categorias">
+                                                    <label><input type="checkbox" name="1" value="1"> Accion</label>
+                                                    <label><input type="checkbox" name="2" value="2"> Aventura</label>
+                                                    <label><input type="checkbox" name="3" value="3"> Ciencia Ficcion</label>
+                                                    <label><input type="checkbox" name="4" value="4"> Comedia</label>
+                                                </div>
+                                                <div class="list-categorias" >
+                                                    <label><input type="checkbox" name="5" value="5"> Drama</label>
+                                                    <label><input type="checkbox" name="6" value="6"> Fantasia</label>
+                                                    <label><input type="checkbox" name="7" value="7"> Suspenso</label>
+                                                    <label><input type="checkbox" name="8" value="8"> Romance</label>
+                                                    <label><input type="checkbox" name="9" value="9"> Animacion</label>
+                                                </div>
                                             </div>
                                             <div class="mb-3" style="display: flex;">
-                                                <label for="year" class="h5">Year: </label>
-                                                <input type="number" class="form-control" aria-describedby="emailHelp" required name="year">
+                                                <label for="year" class="h6">Year: </label>
+                                                <input type="number" id="year" class="form-control" aria-describedby="emailHelp" required name="year">
                                             </div>
                                             <div class="mb-3" style="display: flex;">
-                                                <label for="autor" class="h5">Autor: </label>
-                                                <input type="text" class="form-control"  aria-describedby="emailHelp" required name="autor">
+                                                <label for="autor" class="h6">Autor: </label>
+                                                <input type="text" id="autor" class="form-control"  aria-describedby="emailHelp" required name="autor">
                                             </div>
                                             <div class="mb-3" style="display: flex;">
-                                                <label for="actor" class="h5">Actor: </label>
-                                                <input type="text" class="form-control"  aria-describedby="emailHelp" required name="actor">
+                                                <label for="actor" class="h6">Actor: </label>
+                                                <input type="text" id="actor" class="form-control"  aria-describedby="emailHelp" required name="actor">
                                             </div>
                                             <div class="mb-3"style="display: flex;">
-                                                <label for="productor" class="h5">Productor: </label>
-                                                <input type="text" class="form-control" aria-describedby="emailHelp" required name="productor">
+                                                <label for="productor" class="h6">Productor: </label>
+                                                <input type="text" id="productor" class="form-control" aria-describedby="emailHelp" required name="productor">
                                             </div>
                                             <div class="mb-3"style="display: flex;">
-                                                <label for="descripcion" class="h5">Descripcion: </label>
-                                                <input type="text" class="form-control" aria-describedby="emailHelp" required name="descripcion">
+                                                <label for="descripcion" class="h6">Descripcion: </label>
+                                                <input type="text" id="descripcion" class="form-control" aria-describedby="emailHelp" required name="descripcion">
                                             </div>
+
                                             <div class="modal-body-contenedor">
-                                                <label for="imagen" class="h5">Imagen: </label>
+                                                <label for="imagen-previa-agregar" class="h6">Imagen: </label>
                                                 <label class="custom-file-upload" for="imagen-previa-agregar">
                                                     <span class="custom-file-label bg-opacity-10">Seleccionar imagen</span>
                                                 </label>
@@ -188,15 +118,19 @@
                                             </div> 
                                             
                                             <div class="mb-3" style="display: flex;">
-                                                <label for="link" class="h5">Link del video: </label>
-                                                <input type="text" class="form-control" aria-describedby="emailHelp" required name="link">
+                                                <label for="link" class="h6">Link del video: </label>
+                                                <input type="text" id="link" class="form-control" aria-describedby="emailHelp" required name="link">
                                             </div>
-                                            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+                                            <div class="modal-footer">
+                                                <!-- Agrega aquí tus elementos de pie de página -->
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary" id="submitButton">Enviar</button>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="imagenCargada">
                                         <div class="tile_imagen">
-                                            <h2>Imagen</h2>
+                                            <h5>Imagen previa</h5>
                                         </div>
                                         <div class="container-imagen-muestra">
                                             <img class="imagen-previa-agregar imagen-previa" id="imagen-previa-agregar" alt="Imagen previa" src="">
@@ -216,19 +150,16 @@
         </div>
     </main>
     <script>
-
         let imagen = document.querySelector(".imagen-previa-agregar");
         let input = document.querySelector(".file-previa-agregar");
-
         input.onchange = (e) => {
             if (input.files[0]) {
-                imagen.style.display = "block"; // Mostrar la imagen
+                imagen.style.display = "block";
                 imagen.src = URL.createObjectURL(input.files[0]);
             } else {
-                imagen.style.display = "none"; // Ocultar la imagen cuando no hay archivo seleccionado
+                imagen.style.display = "none";
             }
         }
-
     </script>
     <script src="js/configuracion.js"></script>
     <script src="js/script.js"></script>

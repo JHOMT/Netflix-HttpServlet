@@ -6,9 +6,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pe.edu.utp.JPA.Controller.CategoriaController;
 import pe.edu.utp.JPA.Controller.PeliculaController;
-import pe.edu.utp.utils.model.Categoria;
-import pe.edu.utp.utils.model.Pelicula;
-import pe.edu.utp.utils.model.Usuario;
+import pe.edu.utp.model.Categoria;
+import pe.edu.utp.model.Pelicula;
+import pe.edu.utp.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
@@ -18,6 +18,10 @@ public class ListarPeliculasServlet  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Usuario usuario = IniciarSesionServlet.getUsuario();
+        if (usuario == null) {
+            resp.sendRedirect("/iniciar-sesion");
+            return;
+        }
 
         PeliculaController peliculaController = new PeliculaController();
         List<Pelicula> peliculas = peliculaController.findAll();
@@ -33,7 +37,7 @@ public class ListarPeliculasServlet  extends HttpServlet {
             htmlBuilder.append("<div class=\"poster\"><img src=\"img/peliculas/").append(pelicula.getImagen()).append("\" alt=\"Location Unknown\"></div>");
             htmlBuilder.append("<div class=\"details\">");
             htmlBuilder.append("<h1>").append(pelicula.getTitulo()).append("</h1>");
-            htmlBuilder.append("<h2>").append(pelicula.getFecha_lanzamiento()).append("</h2>");
+            htmlBuilder.append("<h2>").append(pelicula.getLanzamiento()).append("</h2>");
             htmlBuilder.append("<div class=\"rating\">");
             htmlBuilder.append("<i class=\"fas fa-star\"></i>");
             htmlBuilder.append("<i class=\"fas fa-star\"></i>");
@@ -49,16 +53,27 @@ public class ListarPeliculasServlet  extends HttpServlet {
             }
 
             htmlBuilder.append("</div>");
-            htmlBuilder.append("<p class=\"desc\">").append(pelicula.getDescription()).append("</p>");
+            htmlBuilder.append("<p class=\"desc\">").append(twentyWords(pelicula.getDescription())).append("</p>");
             htmlBuilder.append("</div>");
             htmlBuilder.append("</a>");
         }
-
 
         String reporte_html = html
                 .replace("${nombre_usuario}", usuario.getNombre())
                 .replace("${imagen_usuario}", usuario.getImagen())
                 .replace("${items}", htmlBuilder.toString());
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(reporte_html);
+    }
+    public String twentyWords(String descripcion) {
+        String[] words = descripcion.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < words.length && i < 15; i++) {
+            stringBuilder.append(words[i]).append(" ");
+        }
+        if (words.length > 15) {
+            stringBuilder.append("...");
+        }
+        return stringBuilder.toString().trim();
     }
 }

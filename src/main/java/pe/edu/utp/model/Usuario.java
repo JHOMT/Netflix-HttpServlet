@@ -1,4 +1,4 @@
-package pe.edu.utp.utils.model;
+package pe.edu.utp.model;
 
 import lombok.*;
 

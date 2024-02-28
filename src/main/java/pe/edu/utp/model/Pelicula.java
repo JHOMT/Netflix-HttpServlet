@@ -1,9 +1,6 @@
-package pe.edu.utp.utils.model;
+package pe.edu.utp.model;
 
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,7 +13,7 @@ import java.util.List;
 public class Pelicula {
     private int id;
     private String titulo;
-    private int fecha_lanzamiento;
+    private int lanzamiento;
     private String actor;
     private String autor;
     private String productor;
@@ -24,9 +21,9 @@ public class Pelicula {
     private String imagen;
     private String url;
 
-    public Pelicula(String titulo, int fecha_lanzamiento, String actor, String autor, String productor, String description, String imagen, String url) {
+    public Pelicula(String titulo, int lanzamiento, String actor, String autor, String productor, String description, String imagen, String url) {
         this.titulo = titulo;
-        this.fecha_lanzamiento = fecha_lanzamiento;
+        this.lanzamiento = lanzamiento;
         this.actor = actor;
         this.autor = autor;
         this.productor = productor;

@@ -1,4 +1,3 @@
-// Cambiar de tema 
 document.addEventListener('DOMContentLoaded', function() {
     const swictherTheme = document.querySelector('.main__check');
     const root = document.documentElement;

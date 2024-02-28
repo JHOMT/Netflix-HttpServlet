@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
 import pe.edu.utp.JPA.Controller.UsuarioController;
-import pe.edu.utp.utils.model.Usuario;
+import pe.edu.utp.model.Usuario;
 
 import java.io.IOException;
 
@@ -31,5 +31,6 @@ public class IniciarSesionServlet extends HttpServlet {
         } else {
             resp.sendRedirect("/error.html");
         }
+        resp.setCharacterEncoding("UTF-8");
     }
 }

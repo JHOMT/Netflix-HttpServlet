@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pe.edu.utp.JPA.Controller.UsuarioController;
-import pe.edu.utp.utils.model.Usuario;
+import pe.edu.utp.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
@@ -28,18 +28,19 @@ public class BuscarUsuarioServlet extends HttpServlet {
             StringBuilder tableRows = new StringBuilder();
             int i = 1;
             for (Usuario usuario : usuariosEncontrados) {
+                String isAdminHTML = usuario.isAdmin() ? "<span class='check'>&#10003;</span>" : "<span class='x'>&#10007;</span>";
                 tableRows.append("<tr><th scope='row'>").append(i).append("</th><td>")
                         .append(usuario.getNombre()).append("</td><td>")
                         .append(usuario.getEmail()).append("</td><td>")
-                        .append("******")
+                        .append("*********")
                         .append("</td><td>")
-                        .append(usuario.isAdmin())
+                        .append(isAdminHTML)
                         .append("</td></tr>");
                 i++;
             }
             html = html.replace("${items}", tableRows.toString())
                     .replace("${pagination}", "");
-
+            resp.setCharacterEncoding("UTF-8");
             resp.getWriter().println(html);
         } catch (Exception e) {
             e.printStackTrace();

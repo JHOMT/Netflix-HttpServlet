@@ -14,7 +14,7 @@ public class JettyUTP {
     private String static_path;
     private ServletContextHandler context;
 
-    public JettyUTP(int port, String static_path, String movies) {
+    public JettyUTP(int port, String static_path) {
         this.port = port;
         this.static_path = static_path;
         this.server = new Server(port);

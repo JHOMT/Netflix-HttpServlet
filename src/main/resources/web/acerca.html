@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <title>Acerca de - CineGlobal</title>
+    <link rel="stylesheet" href="css/listarPeliculas.css">
+</head>
+<body>
+<header>
+    <div class="hero">
+        <nav>
+            <a href="/listar"><label class="logo">CineGlobal</label></a>
+            <ul>
+                <li><a href="/listar">Hogar</a></li>
+                <li><a href="/acerca">Acerca de</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+            </ul>
+            </ul>
+            <img src="img/usuarios/${imagen_usuario}" alt="profil" class="user-pic" onclick="toggleMenu()" />
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="img/usuarios/${imagen_usuario}" alt="profil" class="user-pic"/>
+                        <h3>${nombre_usuario}</h3>
+                    </div>
+                    <a href="#" class="sub-menu-link">
+                  <span class="material-symbols-outlined icon">
+                    person
+                    </span>
+                        <p>Editar Perfil</p>
+                        <span> > </span>
+                    </a>
+                    <a href="#" class="sub-menu-link">
+                  <span class="material-symbols-outlined icon">
+                    settings
+                    </span>
+                        <p>Configuracion y privacidad</p>
+                        <span> > </span>
+                    </a>
+                    <a href="#" class="sub-menu-link">
+                  <span class="material-symbols-outlined icon">
+                    help
+                    </span>
+                        <p>Servicio de asistencia</p>
+                        <span> > </span>
+                    </a>
+                    <a href="#" class="sub-menu-link">
+                  <span class="material-symbols-outlined icon">
+                    logout
+                    </span>
+                        <p>Cerara sesion</p>
+                        <span> > </span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="about-container">
+    <section class="acerca-de">
+        <h1>Acerca de CineGlobal</h1>
+        <img src="img/empresa/logoJhomt.png" alt="Logo de CineGlobal">
+        <p>Somos apasionados por el cine y comprometidos en llevar lo mejor del séptimo arte a tu hogar...</p>
+        <p>En nuestra plataforma, encontrarás una amplia selección de películas de calidad...</p>
+    </section>
+    <section class="historia">
+        <p>
+            Desde los albores de la cinematografía, se forjó una conexión mágica con las historias proyectadas en la pantalla. En el epicentro de esta pasión, nació "CineGlobal". Un proyecto que busca trascender el tiempo y el espacio, llevando la emoción del cine a cada espectador.
+            Comprometidos con la excelencia cinematográfica y el apoyo a creadores independientes, "CineGlobal" se convirtió en el punto de encuentro entre cineastas y amantes del cine de todo el mundo.
+            Cada película en "CineGlobal" es más que un filme; es una experiencia, un mundo de emociones encapsulado en fotogramas, transmitiendo la magia de la narrativa visual a través del tiempo y el espacio.
+            Los cinéfilos que eligen "CineGlobal" no solo disfrutan de películas; abren sus corazones a nuevas narrativas, exploran universos cinematográficos y se sumergen en la riqueza del arte audiovisual.
+            El viaje de cada película comienza en la mente del creador, atraviesa la pantalla y deja una huella imborrable en el corazón de cada espectador.
+            En "CineGlobal", cada visualización es una celebración del cine, una contribución al legado cinematográfico y un paso hacia el enriquecimiento cultural.
+        </p>
+    </section>
+    <section class="valores">
+        <h2>Nuestros Valores</h2>
+        <ul>
+            <li>Apasionados por el cine</li>
+            <li>Diversidad cinematográfica</li>
+            <li>Compromiso con la excelencia</li>
+        </ul>
+    </section>
+
+</main>
+<footer>
+    <div class="footer">
+        <h1>MarcketPlace</h1>
+        <ul class="enlaces">
+            <li><a href="#"><span class="material-symbols-outlined icon">
+            call
+            </span></a></li>
+            <li><a href="#"><span class="material-symbols-outlined icon">
+            mark_email_unread
+            </span></a></li>
+        </ul>
+        <h2>+51 937 381</h2>
+        <h2>"Descubre la magia del cine en cada historia."</h2>
+    </div>
+</footer>
+<script>
+    feather.replace();
+    function toggleMenu() {
+        let subMenu = document.getElementById("subMenu");
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+</body>
+</html>

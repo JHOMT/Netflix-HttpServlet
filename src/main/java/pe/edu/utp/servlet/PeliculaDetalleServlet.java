@@ -6,9 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import pe.edu.utp.JPA.Controller.ComentarioController;
 import pe.edu.utp.JPA.Controller.PeliculaController;
 import pe.edu.utp.JPA.Controller.UsuarioController;
-import pe.edu.utp.utils.model.Comentario;
-import pe.edu.utp.utils.model.Pelicula;
-import pe.edu.utp.utils.model.Usuario;
+import pe.edu.utp.model.Comentario;
+import pe.edu.utp.model.Pelicula;
+import pe.edu.utp.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
@@ -62,10 +62,10 @@ public class PeliculaDetalleServlet extends HttpServlet {
                 .replace("${actor}", pelicula.getActor())
                 .replace("${autor}", pelicula.getAutor())
                 .replace("${productor}", pelicula.getProductor())
-                .replace("${lanzamiento}", String.valueOf(pelicula.getFecha_lanzamiento()))
+                .replace("${lanzamiento}", String.valueOf(pelicula.getLanzamiento()))
                 .replace("${comentarios}",comentarios)
         ;
-        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.getWriter().write(detalleHTML);
     }
     public String formatDate(LocalDateTime localDateTime) {
