@@ -69,8 +69,6 @@ form{
 }
 .container-imagen-muestra{
     display: flex;
-    align-items: center;
-    justify-content: center;
     margin-left: 10%;
     border: 1px solid #000;
     height: 300px;
@@ -78,8 +76,6 @@ form{
     align-items: center;
     justify-content: center;
     color: #fff;
-    padding: 1px;
-    display: flex;
     padding: 20px;
 }
 .imagen-previa{
@@ -92,6 +88,22 @@ form{
 .imagen-previa-agregar {
     width: 100%;
     height: auto;
+}
+.form-group{
+    display: flex;
+    justify-content: space-around;
+}
+.form-group label{
+    visibility: hidden;
+}
+.form-group select{
+    width: 100px;
+    height: 40px;
+    margin-right: 1rem;
+}
+.form-group button{
+    width: 100px;
+    height: 40px;
 }
 label{
     width: 45%;

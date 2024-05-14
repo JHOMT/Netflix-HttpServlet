@@ -264,7 +264,22 @@ main{
     display: flex;
     gap: .25em;
 }
-
+.form-group{
+    display: flex;
+    justify-content: space-around;
+}
+.form-group label{
+    visibility: hidden;
+}
+.form-group select{
+    width: 100px;
+    height: 40px;
+    margin-right: 1rem;
+}
+.form-group button{
+    width: 100px;
+    height: 40px;
+}
 .details .rating i {
     color: #e3c414;
 }

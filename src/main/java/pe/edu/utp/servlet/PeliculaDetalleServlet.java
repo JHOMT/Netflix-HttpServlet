@@ -37,11 +37,11 @@ public class PeliculaDetalleServlet extends HttpServlet {
                         .append("<img src=\"img/usuarios/").append(usuario.getImagen()).append("\" alt=\"\">")
                         .append("</div>")
                         .append("<div class=\"info-comentario\">")
-                        .append("<h3>@ <strong>");
+                        .append("<h3><strong>");
                 if (usuario.equals(usuarioLogeado)){
-                    comentarios.append("Tu ");
+                    comentarios.append("Tú ");
                 }else {
-                    comentarios.append(usuario.getNombre());
+                    comentarios.append("@ ").append(usuario.getNombre());
                 }
                 comentarios
                         .append(" ").append("</strong>").append(formatDate(comentario.getFecha_comentario()))

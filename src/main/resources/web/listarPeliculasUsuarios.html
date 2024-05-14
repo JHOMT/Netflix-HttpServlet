@@ -22,7 +22,16 @@
                 <input type="text" placeholder="Buscar" id="txtNombre" name="txtNombre" required>
                 <button type="submit"><i class="material-symbols-outlined">search</i></button>
             </form>
-            </ul>
+            <form action="/DashboardOrdenar" method="post">
+                <div class="form-group">
+                    <label for="filtro_categoria" class="form-label">Filtrar por:</label> <!-- Añadido atributo "for" para asociar la etiqueta con el select -->
+                    <select id="filtro_categoria" name="filtro_categoria" class="form-select btn btn-primary ms-lg-2"> <!-- Añadido ID y NAME para identificar el select -->
+                        <option value="categoria">Categoria</option>
+                        <option value="año">Año</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Ordenar</button> <!-- Cambiado el texto "filtrar" por un botón para mejorar la usabilidad -->
+                </div>
+            </form>
             <img src="img/usuarios/${imagen_usuario}" alt="profil" class="user-pic" onclick="toggleMenu()" />
             <div class="sub-menu-wrap" id="subMenu">
                 <div class="sub-menu">
@@ -64,9 +73,7 @@
     </div>
 </header>
 <main>
-    <div class="products">
         ${items}
-    </div>
 </main>
 <footer>
     <div class="footer">

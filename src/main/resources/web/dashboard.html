@@ -54,6 +54,19 @@
                     <button type="button" class="btn btn-primary ms-lg-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Registrar
                     </button>
+                    <form action="/DashboardOrdenar" method="post">
+                        <div class="form-group">
+                            <label for="filtro_categoria" class="form-label">Filtrar por:</label> <!-- Añadido atributo "for" para asociar la etiqueta con el select -->
+                            <select id="filtro_categoria" name="filtro_categoria" class="form-select btn btn-primary ms-lg-2"> <!-- Añadido ID y NAME para identificar el select -->
+                                <option value="categoria">Categoria</option>
+                                <option value="año">Año</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Filtrar</button> <!-- Cambiado el texto "filtrar" por un botón para mejorar la usabilidad -->
+                        </div>
+                    </form>
+
+
+
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl"> <!-- Agrega la clase modal-lg para hacerlo más ancho -->
@@ -87,7 +100,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3" style="display: flex;">
-                                                <label for="year" class="h6">Year: </label>
+                                                <label for="year" class="h6">Año: </label>
                                                 <input type="number" id="year" class="form-control" aria-describedby="emailHelp" required name="year">
                                             </div>
                                             <div class="mb-3" style="display: flex;">

@@ -8,17 +8,24 @@ import pe.edu.utp.JPA.Controller.CategoriaController;
 import pe.edu.utp.JPA.Controller.PeliculaController;
 import pe.edu.utp.model.Categoria;
 import pe.edu.utp.model.Pelicula;
+import pe.edu.utp.model.Usuario;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
 import java.util.List;
+
+import static pe.edu.utp.structures.ListMoviesUsuarios.twentyWords;
 
 public class DashboardPeliculasServlet extends HttpServlet {
     private static final int PAGE_SIZE = 4;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CategoriaController categoriaController = new CategoriaController();
+        Usuario usuario = IniciarSesionServlet.getUsuario();
+        if (usuario == null) {
+            resp.sendRedirect("/iniciar_Sesion.html");
+            return;
+        }
         PeliculaController peliculaController = new PeliculaController();
         List<Pelicula> peliculas = peliculaController.findAll();
 
@@ -34,13 +41,18 @@ public class DashboardPeliculasServlet extends HttpServlet {
         offset = Math.min(offset, totalPeliculas - 1);
         offset = Math.max(offset, 0);
 
-        String filename = "src\\main\\resources\\web\\dashboard.html";
-        String html = TextUTP.read(filename);
+        String reporte_html = generarHTMLPeliculas(peliculas, offset, totalPages);
 
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(reporte_html);
+    }
+
+    public static String generarHTMLPeliculas(List<Pelicula> peliculas, int offset, int totalPages) throws IOException {
         StringBuilder htmlBuilder = new StringBuilder();
 
-        for (int i = offset; i < totalPeliculas && i < offset + PAGE_SIZE; i++) {
+        for (int i = offset; i < peliculas.size() && i < offset + PAGE_SIZE; i++) {
             Pelicula pelicula = peliculas.get(i);
+            CategoriaController categoriaController = new CategoriaController();
             htmlBuilder.append("<a href=\"/detalle?id=").append(pelicula.getId()).append("\" class=\"card\">");
             htmlBuilder.append("<div class=\"poster\"><img src=\"img/peliculas/").append(pelicula.getImagen()).append("\" alt=\"Location Unknown\"></div>");
             htmlBuilder.append("<div class=\"details\">");
@@ -58,32 +70,36 @@ public class DashboardPeliculasServlet extends HttpServlet {
             for (Categoria categoria : categorias) {
                 htmlBuilder.append("<span class=\"tag\">").append(categoria.getNombre()).append("</span>");
             }
-
             htmlBuilder.append("</div>");
             htmlBuilder.append("<p class=\"desc\">").append(twentyWords(pelicula.getDescription())).append("</p>");
             htmlBuilder.append("</div>");
             htmlBuilder.append("</a>");
         }
 
-        String paginationHtml = "<nav aria-label='Page navigation example'><ul class='pagination justify-content-end'>";
+        String paginationHtml = getPaginationHtml(totalPages, offset);
+        String filename = "src\\main\\resources\\web\\dashboard.html";
+        String html = TextUTP.read(filename);
+        String reporte_html = html.replace("${items}", htmlBuilder.toString()).replace("${pagination}", paginationHtml);
+        return reporte_html;
+    }
+
+    private static String getPaginationHtml(int totalPages, int offset) {
+        StringBuilder paginationHtml = new StringBuilder("<nav aria-label='Page navigation example'><ul class='pagination justify-content-end'>");
 
         for (int i = 0; i < totalPages; i++) {
             int pageOffset = i * PAGE_SIZE;
             if (pageOffset == offset) {
-                paginationHtml += "<li class='page-item active'><span class='page-link'>" + (i + 1) + "</span></li>";
+                paginationHtml.append("<li class='page-item active'><span class='page-link'>").append(i + 1).append("</span></li>");
             } else {
-                paginationHtml += "<li class='page-item'><a class='page-link' href='?offset=" + pageOffset + "'>" + (i + 1) + "</a></li>";
+                paginationHtml.append("<li class='page-item'><a class='page-link' href='?offset=").append(pageOffset).append("'>").append(i + 1).append("</a></li>");
             }
         }
-        paginationHtml += "</ul></nav>";
-        String reporte_html = html
-                .replace("${items}", htmlBuilder.toString())
-                .replace("${pagination}", paginationHtml);
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(reporte_html);
+        paginationHtml.append("</ul></nav>");
+        return paginationHtml.toString();
     }
-    public String twentyWords(String descripcion) {
-        String[] words = descripcion.split(" ");
+
+    private static String twentyWords(String description) {
+        String[] words = description.split(" ");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < words.length && i < 18; i++) {
             stringBuilder.append(words[i]).append(" ");

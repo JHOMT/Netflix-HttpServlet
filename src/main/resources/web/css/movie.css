@@ -9,6 +9,7 @@ html{
 *, *:before, *:after{
     box-sizing: inherit; /* hereda el box-sizing */
 }
+
 body{
     font-family: "Raleway", sans-serif;
     font-size: 1.6rem; /* 16px */
@@ -16,13 +17,20 @@ body{
     color: white;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
+    font-family: "Courgette", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 header{
     text-align: center;
     padding: .2rem 0 ;
 }
 header h1{
-    font-size: 3rem;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 6rem;
 }
 main{
     display: block;
@@ -35,18 +43,23 @@ main{
     }
 }
 .descripcion{
-    width: 70%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 1px;
+    background-color: #7a7a7a7a;
+    padding: 3rem;
+    border-radius: 2.4rem;
+    border: 1px solid white;
+    margin-right: 2rem;
 }
 .video-container{
-    width: 80rem;
-    height: 40rem;
-    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
-    -9px -9px 16px rgba(255, 255, 255, 0.5);
+    width: 70rem;
+    height: 35rem;
+    border: 1px solid white;
+    padding: 1rem;
+    background-color: black;
 }
 iframe{
     width: 100%;
@@ -78,7 +91,7 @@ iframe{
     flex-direction: column;
     justify-content: end;
     background-color: #7a7a7a7a;
-    
+
 }
 .comentarios {
     background-color: black;

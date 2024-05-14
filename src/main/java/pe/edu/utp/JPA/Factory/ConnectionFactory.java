@@ -8,6 +8,7 @@ public class ConnectionFactory {
     private static final String url = "jdbc:mysql://localhost:3306/netflixDB";
     private static final String username = "root";
     private static final String password = "jhon2002";
+
     public static Connection getConnection() {
         Connection conexion = null;
 

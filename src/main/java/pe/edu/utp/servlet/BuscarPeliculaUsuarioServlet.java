@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import pe.edu.utp.JPA.Controller.PeliculaController;
 import pe.edu.utp.model.Pelicula;
 import pe.edu.utp.model.Usuario;
-import pe.edu.utp.structures.ListMovies;
+import pe.edu.utp.structures.ListMoviesUsuarios;
 import pe.edu.utp.utils.TextUTP;
 
 import java.io.IOException;
@@ -32,8 +32,8 @@ public class BuscarPeliculaUsuarioServlet extends HttpServlet {
             StringBuilder htmlBuilder = new StringBuilder();
 
             if (peliculasEncontradas != null && !peliculasEncontradas.isEmpty()) {
-                ListMovies listMovies = new ListMovies();
-                htmlBuilder.append(listMovies.listMovies(peliculasEncontradas));
+                ListMoviesUsuarios listMovies = new ListMoviesUsuarios();
+                htmlBuilder.append(ListMoviesUsuarios.listMovies(peliculasEncontradas));
             } else {
                     htmlBuilder.append("<h2> No se encontro ninguna pelicula con el relacionada con: ")
                             .append( peliculaBuscada.toUpperCase())

@@ -21,7 +21,7 @@ import java.time.LocalDate;
         maxRequestSize = 1024 * 1024 * 5 * 5
 )
 public class RegistrarUsuarioServlet extends HttpServlet {
-    private static final String DESTINO_IMAGENES = "src/main/resources/web/img/usuarios/";
+    private static final String DESTINO_IMAGES = "src/main/resources/web/img/usuarios/";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UsuarioController usuarioController = new UsuarioController();
@@ -53,7 +53,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String foto = getFileName(filePart);
         if (foto != null && !foto.isEmpty()) {
             byte[] data = filePart.getInputStream().readAllBytes();
-            UTPBinary.echobin(data, DESTINO_IMAGENES + foto);
+            UTPBinary.echobin(data, DESTINO_IMAGES + foto);
             return foto;
         } else {
             throw new IllegalArgumentException("Debe adjuntar una imagen.");
